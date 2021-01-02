@@ -38,13 +38,13 @@ class ForceArtist(MeshArtist):
 
     def __init__(self, force, layer=None, settings=None):
         super(ForceArtist, self).__init__(force, layer=layer)
-        self.settings = ({
+        self.settings = {
             'color.vertex': (255, 255, 255),
             'color.edge': (0, 0, 0),
             'color.face': (210, 210, 210),
             'show.vertices': True,
             'show.edges': True,
-            'show.faces': False})
+            'show.faces': False}
         if settings:
             self.settings.update(settings)
 
