@@ -38,7 +38,7 @@ class ForceArtist(MeshArtist):
 
     def __init__(self, force, layer=None, settings=None):
         super(ForceArtist, self).__init__(force, layer=layer)
-        self.settings.update({
+        self.settings = ({
             'color.vertex': (255, 255, 255),
             'color.edge': (0, 0, 0),
             'color.face': (210, 210, 210),
@@ -67,14 +67,14 @@ class ForceArtist(MeshArtist):
         if self.layer:
             self.clear_layer()
         if self.settings['show.vertices']:
-            vertexcolor = {key: self.settings['color.vertices'] for key in self.vertices()}
+            vertexcolor = {key: self.settings['color.vertex'] for key in self.vertices()}
             self.draw_vertices(color=vertexcolor)
         if self.settings['show.edges']:
             self.draw_edges(
-                color=self.settings['color.edges'])
+                color=self.settings['color.edge'])
         if self.settings['show.faces']:
             self.draw_faces(
-                color=self.settings['color.faces'])
+                color=self.settings['color.face'])
         self.redraw()
 
 

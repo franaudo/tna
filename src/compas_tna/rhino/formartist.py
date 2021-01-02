@@ -45,7 +45,7 @@ class FormArtist(MeshArtist):
 
     def __init__(self, form, layer=None, settings=None):
         super(FormArtist, self).__init__(form, layer=layer)
-        self.settings.update({
+        self.settings = {
             'color.vertex': (255, 255, 255),
             'color.vertex:is_fixed': (0, 0, 255),
             'color.vertex:is_anchor': (255, 0, 0),
@@ -73,7 +73,7 @@ class FormArtist(MeshArtist):
             'show.reactions': False,
             'show.residuals': False,
             'show.forces': False,
-            'show.angles': False})
+            'show.angles': False}
         if settings:
             self.settings.update(settings)
 
@@ -96,18 +96,18 @@ class FormArtist(MeshArtist):
         if self.layer:
             self.clear_layer()
         if self.settings['show.vertices']:
-            vertexcolor = {key: self.settings['color.vertices'] for key in self.vertices()}
-            vertexcolor.update({key: self.settings['color.vertices:is_fixed'] for key in self.vertices_where({'is_fixed': True})})
-            vertexcolor.update({key: self.settings['color.vertices:is_anchor'] for key in self.vertices_where({'is_anchor': True})})
+            vertexcolor = {key: self.settings['color.vertex'] for key in self.mesh.vertices()}
+            vertexcolor.update({key: self.settings['color.vertex:is_fixed'] for key in self.mesh.vertices_where({'is_fixed': True})})
+            vertexcolor.update({key: self.settings['color.vertex:is_anchor'] for key in self.mesh.vertices_where({'is_anchor': True})})
             self.draw_vertices(color=vertexcolor)
         if self.settings['show.edges']:
             self.draw_edges(
-                keys=list(self.edges_where({'_is_edge': True})),
-                color=self.settings['color.edges'])
+                edges=list(self.mesh.edges_where({'_is_edge': True})),
+                color=self.settings['color.edge'])
         if self.settings['show.faces']:
             self.draw_faces(
-                keys=list(self.faces_where({'_is_loaded': True})),
-                color=self.settings['color.faces'])
+                faces=list(self.mesh.faces_where({'_is_loaded': True})),
+                color=self.settings['color.face'])
         if self.settings['show.forces']:
             self.draw_forces()
         if self.settings['show.reactions']:
